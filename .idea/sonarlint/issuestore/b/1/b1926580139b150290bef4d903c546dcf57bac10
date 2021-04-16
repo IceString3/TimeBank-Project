@@ -1,0 +1,32 @@
+
+p	java:S116"TRename this field "tlf_movil" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïé”È8—Û³‘ğ.
+O
+java:S1068"-Remove this unused "apellido2" private field.(°éŒ—şÿÿÿÿ8ÉèóÆî.
+I
+java:S1068"'Remove this unused "dni" private field.(ªÍËÅüÿÿÿÿ8ÔŠÚËî.
+O
+java:S1068"-Remove this unused "apellido1" private field.(úì”ñûÿÿÿÿ8ÉèóÆî.
+J
+java:S1068	"-Remove this unused "profesion" private field.(Óóÿ»8ƒØ±‘ğ.
+t	java:S116"SRename this field "tlf_fijo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ´Ó›øÿÿÿÿ8—Û³‘ğ.
+J
+java:S1068"-Remove this unused "tlf_movil" private field.(ïé”È8—Û³‘ğ.
+R
+java:S1068"0Remove this unused "serviciosOfr" private field.(§ï¾ßıÿÿÿÿ8²¯·‘ğ.
+P
+java:S1068".Remove this unused "totalHoras" private field.(—¶Û­ùÿÿÿÿ8İ¬ÔËî.
+N
+java:S1068
+",Remove this unused "messages" private field.(ŞİÁÿÿÿÿÿ8è•“ù.
+L
+java:S1068"*Remove this unused "nombre" private field.(µÿï„ùÿÿÿÿ8ÉèóÆî.
+K
+java:S1068")Remove this unused "horas" private field.(çƒò”üÿÿÿÿ8İ¬ÔËî.
+N
+java:S1068"1Remove this unused "timesHelpedBy" private field.(÷»Úè8İ¬ÔËî.
+N
+java:S1068",Remove this unused "tlf_fijo" private field.(Æ´Ó›øÿÿÿÿ8—Û³‘ğ.
+J
+java:S1068"-Remove this unused "localidad" private field.( ûÙè8ÔşÂËî.
+Q
+java:S1068"/Remove this unused "timesHelped" private field.(×™£ÿÿÿÿÿ8İ¬ÔËî.
