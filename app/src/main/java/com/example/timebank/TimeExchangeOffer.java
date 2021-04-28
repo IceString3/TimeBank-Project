@@ -1,7 +1,8 @@
 package com.example.timebank;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class TimeExchangeOffer extends AppCompatActivity {
+public class TimeExchangeOffer extends Activity {
     ParseUser user = new ParseUser();
     String username;
     EditText editTextPay;
@@ -107,14 +108,34 @@ public class TimeExchangeOffer extends AppCompatActivity {
                             }
                         }
                     });
-                    Intent intent = new Intent(getApplicationContext(), ContentMain.class);
-                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "No se ha podido pagar al usuario", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
         });
+        createAlertDialog();
+    }
+    public void createAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setMessage("¿Desea hacer una reseña del usuario?");
+
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getApplicationContext(), UserEval.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+                startActivity(intent);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
 }
