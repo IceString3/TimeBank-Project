@@ -2,6 +2,8 @@ package com.example.timebank;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -24,6 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TimeExchangeOffer extends Activity {
+    AlertDialog.Builder builder;
     ParseUser user = new ParseUser();
     String username;
     EditText editTextPay;
@@ -115,7 +121,7 @@ public class TimeExchangeOffer extends Activity {
                 }
             }
         });
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder = new AlertDialog.Builder(this);
         builder.setMessage("¿Desea hacer una reseña del usuario?");
 
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
@@ -134,4 +140,5 @@ public class TimeExchangeOffer extends Activity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 }
