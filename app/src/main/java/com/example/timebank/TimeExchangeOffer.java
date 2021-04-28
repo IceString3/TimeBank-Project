@@ -115,10 +115,7 @@ public class TimeExchangeOffer extends Activity {
                 }
             }
         });
-        createAlertDialog();
-    }
-    public void createAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("¿Desea hacer una reseña del usuario?");
 
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
@@ -136,6 +133,5 @@ public class TimeExchangeOffer extends Activity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 }
