@@ -11,11 +11,11 @@
         android:singleLine="true"
         android:title="Edit text preference" />
     <Preference
-        android:summary="Click to start an activity"
-        android:title="Preference">
+        android:summary="Configurar disponibilidad"
+        android:title="Disponibilidad">
         <intent
-            android:action="com.chikeandroid.settingsscreendemo.SETTING_START_ACTIVITY"
-            android:targetClass="com.chikeandroid.settingsscreendemo.MyActivity"
-            android:targetPackage="com.chikeandroid.settingsscreendemo" />
+            android:action="com.example.timebank.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.timebank.UserAvailability"
+            android:targetPackage="com.example.timebank" />
     </Preference>
 </PreferenceScreen>

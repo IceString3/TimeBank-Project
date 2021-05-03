@@ -55,6 +55,11 @@ public class ContentMain extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void settings(View v) {
+        Intent intent = new Intent(ContentMain.this, UserSettings.class);
+        startActivity(intent);
+    }
+
     public void logout(View v) {
         Intent intent = new Intent(ContentMain.this, MainActivity.class);
         ParseUser.logOut();

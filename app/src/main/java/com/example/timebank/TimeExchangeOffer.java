@@ -50,6 +50,7 @@ public class TimeExchangeOffer extends Activity {
     }
 
     public void accept(View v) {
+        final String offerTitleText = getIntent().getExtras().getString("o_title");
         editTextPay = findViewById(R.id.editTextPay);
         username = getIntent().getExtras().getString("o_username");
         offerID = getIntent().getExtras().getString("o_id");
@@ -128,6 +129,8 @@ public class TimeExchangeOffer extends Activity {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(getApplicationContext(), UserEval.class);
                 intent.putExtra("username", username);
+                intent.putExtra("o_title", offerTitleText);
+                intent.putExtra("o_id", offerID);
                 startActivity(intent);
             }
         });

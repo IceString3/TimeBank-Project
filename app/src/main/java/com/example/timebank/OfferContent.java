@@ -16,6 +16,8 @@ public class OfferContent extends AppCompatActivity {
         boolean isOneTime = getIntent().getExtras().getBoolean("o_oneTime");
 
         String username = getIntent().getExtras().getString("o_username");
+        String title = getIntent().getExtras().getString("o_title");
+        String desc = getIntent().getExtras().getString("o_description");
 
         TextView textViewName = findViewById(R.id.textViewRealname);
         TextView textViewTitle = findViewById(R.id.textViewTitle);
@@ -23,8 +25,8 @@ public class OfferContent extends AppCompatActivity {
         TextView textViewAvail = findViewById(R.id.textViewAvail);
 
         textViewName.setText(username);
-        textViewTitle.setText(getIntent().getExtras().getString("o_title"));
-        textViewDesc.setText(getIntent().getExtras().getString("o_description"));
+        textViewTitle.setText(title);
+        textViewDesc.setText(desc);
         if (isOneTime) {
             textViewAvail.setText("Una vez");
         } else {
