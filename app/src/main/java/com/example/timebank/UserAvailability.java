@@ -121,6 +121,30 @@ public class UserAvailability extends AppCompatActivity {
                                 afternoonFr.setChecked(true);
                             }
                         }
+                        int lengthSa = object.getJSONArray("Saturday").length();
+                        for (int i = 0; i < lengthSa; i++) {
+                            if (object.getJSONArray("Saturday").get(i).equals("Mañana")) {
+                                morningSa.setChecked(true);
+                            }
+                            if (object.getJSONArray("Saturday").get(i).equals("Mediodía")) {
+                                middaySa.setChecked(true);
+                            }
+                            if (object.getJSONArray("Saturday").get(i).equals("Tarde")) {
+                                afternoonSa.setChecked(true);
+                            }
+                        }
+                        int lengthSu = object.getJSONArray("Sunday").length();
+                        for (int i = 0; i < lengthSu; i++) {
+                            if (object.getJSONArray("Sunday").get(i).equals("Mañana")) {
+                                morningSu.setChecked(true);
+                            }
+                            if (object.getJSONArray("Sunday").get(i).equals("Mediodía")) {
+                                middaySu.setChecked(true);
+                            }
+                            if (object.getJSONArray("Sunday").get(i).equals("Tarde")) {
+                                afternoonSu.setChecked(true);
+                            }
+                        }
 
                     } catch (JSONException jsonException) {
                         jsonException.printStackTrace();
