@@ -7,14 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONException;
+
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class UserAvailability extends AppCompatActivity {
 
@@ -48,6 +52,82 @@ public class UserAvailability extends AppCompatActivity {
         final CheckBox afternoonSa = findViewById(R.id.checkBoxAfternoonSa);
         final CheckBox afternoonSu = findViewById(R.id.checkBoxAfternoonSu);
 
+        ParseQuery<ParseObject> queryData1 = ParseQuery.getQuery("Availability");
+        //String[] times = {"mañana", "mediodía", "tarde"};
+        queryData1.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+        //queryData1.whereContainedIn("Monday", Arrays.asList(times));
+        queryData1.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (object != null) {
+                    try {
+                        int lengthM = object.getJSONArray("Monday").length();
+                        for (int i = 0; i < lengthM; i++) {
+                            if (object.getJSONArray("Monday").get(i).equals("Mañana")) {
+                                morningMo.setChecked(true);
+                            }
+                            if (object.getJSONArray("Monday").get(i).equals("Mediodía")) {
+                                middayMo.setChecked(true);
+                            }
+                            if (object.getJSONArray("Monday").get(i).equals("Tarde")) {
+                                afternoonMo.setChecked(true);
+                            }
+                        }
+                        int lengthT = object.getJSONArray("Tuesday").length();
+                        for (int i = 0; i < lengthT; i++) {
+                            if (object.getJSONArray("Tuesday").get(i).equals("Mañana")) {
+                                morningTu.setChecked(true);
+                            }
+                            if (object.getJSONArray("Tuesday").get(i).equals("Mediodía")) {
+                                middayTu.setChecked(true);
+                            }
+                            if (object.getJSONArray("Tuesday").get(i).equals("Tarde")) {
+                                afternoonTu.setChecked(true);
+                            }
+                        }
+                        int lengthW = object.getJSONArray("Wednesday").length();
+                        for (int i = 0; i < lengthW; i++) {
+                            if (object.getJSONArray("Wednesday").get(i).equals("Mañana")) {
+                                morningWe.setChecked(true);
+                            }
+                            if (object.getJSONArray("Wednesday").get(i).equals("Mediodía")) {
+                                middayWe.setChecked(true);
+                            }
+                            if (object.getJSONArray("Wednesday").get(i).equals("Tarde")) {
+                                afternoonWe.setChecked(true);
+                            }
+                        }
+                        int lengthTh = object.getJSONArray("Thursday").length();
+                        for (int i = 0; i < lengthTh; i++) {
+                            if (object.getJSONArray("Thursday").get(i).equals("Mañana")) {
+                                morningTh.setChecked(true);
+                            }
+                            if (object.getJSONArray("Thursday").get(i).equals("Mediodía")) {
+                                middayTh.setChecked(true);
+                            }
+                            if (object.getJSONArray("Thursday").get(i).equals("Tarde")) {
+                                afternoonTh.setChecked(true);
+                            }
+                        }
+                        int lengthFr = object.getJSONArray("Friday").length();
+                        for (int i = 0; i < lengthFr; i++) {
+                            if (object.getJSONArray("Friday").get(i).equals("Mañana")) {
+                                morningFr.setChecked(true);
+                            }
+                            if (object.getJSONArray("Friday").get(i).equals("Mediodía")) {
+                                middayFr.setChecked(true);
+                            }
+                            if (object.getJSONArray("Friday").get(i).equals("Tarde")) {
+                                afternoonFr.setChecked(true);
+                            }
+                        }
+
+                    } catch (JSONException jsonException) {
+                        jsonException.printStackTrace();
+                    }
+                }
+            }
+        });
         Button accept = findViewById(R.id.btnAcceptAvail);
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
