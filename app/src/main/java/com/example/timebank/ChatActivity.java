@@ -56,7 +56,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         Intent intent = getIntent();
-        activeUser = getIntent().getExtras().getString("o_username");
+        activeUser = getIntent().getExtras().getString("username_r");
 
         setTitle("Chat with " + activeUser);
 

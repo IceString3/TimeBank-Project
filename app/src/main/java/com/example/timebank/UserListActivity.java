@@ -35,7 +35,7 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                intent.putExtra("username", users.get(i));
+                intent.putExtra("username_r", users.get(i));
                 startActivity(intent);
             }
         });

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:summary="Subir imagen para perfil de usuario"
+        android:title="Subir imagen">
+        <intent
+            android:action="com.example.timebank.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.timebank.UploadImage"
+            android:targetPackage="com.example.timebank" />
+    </Preference>
+    <Preference
+        android:summary="Ver tus datos"
+        android:title="Ver datos de usuario">
+        <intent
+            android:action="com.example.timebank.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.timebank.UserData"
+            android:targetPackage="com.example.timebank" />
+    </Preference>
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="check_box_preference_1"
