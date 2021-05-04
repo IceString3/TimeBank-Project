@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserAvailability"></activity>
+        <activity android:name=".UserData"></activity>
+        <activity android:name=".UserAvailability" />
         <activity android:name=".UserEval" />
         <activity android:name=".UserSettings" />
         <activity android:name=".TimeExchangeRequest" />
