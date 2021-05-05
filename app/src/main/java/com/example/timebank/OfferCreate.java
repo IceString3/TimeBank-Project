@@ -13,6 +13,11 @@ import android.widget.EditText;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 public class OfferCreate extends AppCompatActivity {
@@ -47,10 +52,24 @@ public class OfferCreate extends AppCompatActivity {
     public void saveChanges(View v) {
 
         ParseObject offer = new ParseObject("Offer");
-        long expiryDate = getIntent().getExtras().getLong("task_date");
-        Date date = new Date();
-        date.setTime(expiryDate);
-        offer.put("expires_at", date);
+        try {
+            long expiryDate = getIntent().getExtras().getLong("task_date");
+            Date date = new Date();
+            date.setTime(expiryDate);
+            offer.put("expires_at", date);
+        } catch (NullPointerException e) {
+            System.out.println("Fecha no encontrada");
+        }
+        String myDate = "31/12/2099 23:59:59";  // 4102444799000L
+        LocalDateTime localDateTime = LocalDateTime.parse(myDate,
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") );
+
+        long millis = localDateTime
+                .atZone(ZoneId.of("UTC"))
+                .toInstant().toEpochMilli();
+        Date date2 = new Date(millis);
+
+        offer.put("expires_at", date2);
         offer.put("username", ParseUser.getCurrentUser());
         offer.put("offer_title", offerTitle.getText().toString());
         offer.put("offer_desc", offerDesc.getText().toString());

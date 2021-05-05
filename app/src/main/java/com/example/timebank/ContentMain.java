@@ -15,11 +15,7 @@ public class ContentMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
-        String name = "";
 
-
-
-        Button createOffer = findViewById(R.id.offerCreateButton);
         TextView welcomeTextView = findViewById(R.id.welcomeTextView);
         welcomeTextView.setText("Bienvenido/a, " + ParseUser.getCurrentUser().get("Name"));
     }

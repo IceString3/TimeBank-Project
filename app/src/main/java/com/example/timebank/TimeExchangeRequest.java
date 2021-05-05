@@ -2,6 +2,8 @@ package com.example.timebank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +22,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class TimeExchangeRequest extends AppCompatActivity {
-
+    ParseUser user = new ParseUser();
+    AlertDialog.Builder builder;
     String username;
     EditText editTextCharge;
     String requestID;
@@ -30,7 +33,7 @@ public class TimeExchangeRequest extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_exchange_offer);
+        setContentView(R.layout.activity_time_exchange_request);
 
         TextView requestTitle = findViewById(R.id.textViewRequestTitle2);
         TextView userRequest = findViewById(R.id.textViewUserRequest);
@@ -40,6 +43,7 @@ public class TimeExchangeRequest extends AppCompatActivity {
     }
 
     public void accept(View v) {
+        final String requestTitleText = getIntent().getExtras().getString("r_title");
         editTextCharge = findViewById(R.id.editTextCharge);
         username = getIntent().getExtras().getString("r_username");
         requestID = getIntent().getExtras().getString("r_id");
@@ -54,8 +58,10 @@ public class TimeExchangeRequest extends AppCompatActivity {
                         for (ParseObject credits : objects) {
                             try {
                                 if (credits.getParseUser("username").fetchIfNeeded().getUsername().equals(username)) {
-                                    credits.increment("time_credits", hours);
+                                    credits.increment("time_credits", -1 * hours);
                                     credits.saveInBackground();
+                                    user.getParseUser("username").increment("total_requests");
+                                    user.saveInBackground();
                                     break;
                                 }
                             } catch (ParseException parseException) {
@@ -103,14 +109,32 @@ public class TimeExchangeRequest extends AppCompatActivity {
                             }
                         }
                     });
-                    Intent intent = new Intent(getApplicationContext(), ContentMain.class);
-                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "No se ha podido cobrar al usuario", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
         });
+        builder = new AlertDialog.Builder(this);
+        builder.setMessage("¿Desea hacer una reseña del usuario?");
+
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getApplicationContext(), UserEval.class);
+                intent.putExtra("username", username);
+                intent.putExtra("r_title", requestTitleText);
+                intent.putExtra("r_id", requestID);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+                startActivity(intent);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
 }

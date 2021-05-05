@@ -22,13 +22,14 @@ public class UserListActivity extends AppCompatActivity {
     ArrayList<String> users = new ArrayList<>();
 
     ArrayAdapter<String> arrayAdapter;
+    String currentCommunity = ParseUser.getCurrentUser().getString("community_name");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
-        setTitle("User List");
+        setTitle("Lista de usuarios");
 
         ListView userListView = (ListView) findViewById(R.id.userListView);
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,6 +48,7 @@ public class UserListActivity extends AppCompatActivity {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
         query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
+        query.whereEqualTo("community_name", currentCommunity);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {

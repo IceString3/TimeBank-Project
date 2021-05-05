@@ -37,7 +37,7 @@ public class RequestListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
 
-        setTitle("Offer List");
+        setTitle("Request List");
 
         ListView requestListView = findViewById(R.id.requestListView);
 
@@ -79,7 +79,7 @@ public class RequestListActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_2, from, to);
         requestListView.setAdapter(adapter);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Offer");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Request");
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

@@ -6,6 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class OfferContent extends AppCompatActivity {
 
@@ -15,6 +27,7 @@ public class OfferContent extends AppCompatActivity {
         setContentView(R.layout.activity_offer_content);
         boolean isOneTime = getIntent().getExtras().getBoolean("o_oneTime");
 
+        String offerID = getIntent().getExtras().getString("o_id");
         String username = getIntent().getExtras().getString("o_username");
         String title = getIntent().getExtras().getString("o_title");
         String desc = getIntent().getExtras().getString("o_description");
@@ -30,7 +43,27 @@ public class OfferContent extends AppCompatActivity {
         if (isOneTime) {
             textViewAvail.setText("Una vez");
         } else {
-            textViewAvail.setText("Siempre");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Offer");
+            query.getInBackground(offerID, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    if (e == null) {
+                        String myDate = "31/12/2099 23:59:59";  // 4102444799000L
+                        LocalDateTime localDateTime = LocalDateTime.parse(myDate,
+                                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") );
+
+                        long millis = localDateTime
+                                .atZone(ZoneId.of("UTC"))
+                                .toInstant().toEpochMilli();
+                        Date date = new Date(millis);
+                        if (object.getDate("expires_at").equals(date)) {
+                            textViewAvail.setText("Siempre");
+                        } else {
+                            textViewAvail.setText(object.getString("expires_at"));
+                        }
+                    }
+                }
+            });
         }
 //        getIntent().getExtras().remove("o_username");
 //        getIntent().getExtras().remove("o_title");
@@ -41,16 +74,25 @@ public class OfferContent extends AppCompatActivity {
     public void contactUser(View v) {
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
         String username = getIntent().getExtras().getString("o_username");
-        intent.putExtra("o_username", username);
-        startActivity(intent);
+        if (username.equals(ParseUser.getCurrentUser().getUsername())) {
+            Toast.makeText(getApplicationContext(), "No puedes contactar contigo mismo", Toast.LENGTH_SHORT).show();
+        } else {
+            intent.putExtra("o_username", username);
+            startActivity(intent);
+        }
     }
 
     public void exchange(View v) {
         Intent intent = new Intent(getApplicationContext(), TimeExchangeOffer.class);
-        intent.putExtra("o_id", getIntent().getExtras().getString("o_id"));
-        intent.putExtra("o_username", getIntent().getExtras().getString("o_username"));
-        intent.putExtra("o_title", getIntent().getExtras().getString("o_title"));
-        startActivity(intent);
+        String username = getIntent().getExtras().getString("o_username");
+        if (username.equals(ParseUser.getCurrentUser().getUsername())) {
+            Toast.makeText(getApplicationContext(), "No puedes contactar contigo mismo", Toast.LENGTH_SHORT).show();
+        } else {
+            intent.putExtra("o_id", getIntent().getExtras().getString("o_id"));
+            intent.putExtra("o_username", getIntent().getExtras().getString("o_username"));
+            intent.putExtra("o_title", getIntent().getExtras().getString("o_title"));
+            startActivity(intent);
+        }
     }
 
     public void cancel(View v) {

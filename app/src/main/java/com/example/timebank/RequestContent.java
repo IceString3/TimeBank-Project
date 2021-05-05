@@ -40,7 +40,7 @@ public class RequestContent extends AppCompatActivity {
     }
 
     public void exchange(View v) {
-        Intent intent = new Intent(getApplicationContext(), TimeExchangeOffer.class);
+        Intent intent = new Intent(getApplicationContext(), TimeExchangeRequest.class);
         intent.putExtra("r_id", getIntent().getExtras().getString("r_id"));
         intent.putExtra("r_username", getIntent().getExtras().getString("r_username"));
         intent.putExtra("r_title", getIntent().getExtras().getString("r_title"));
