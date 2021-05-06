@@ -31,7 +31,7 @@ public class UserListActivity extends AppCompatActivity {
 
         setTitle("Lista de usuarios");
 
-        ListView userListView = (ListView) findViewById(R.id.userListView);
+        ListView userListView = findViewById(R.id.userListView);
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

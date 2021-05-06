@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +38,18 @@ public class OfferContent extends AppCompatActivity {
         TextView textViewDesc = findViewById(R.id.textViewDesc);
         TextView textViewAvail = findViewById(R.id.textViewAvail);
 
+        Button exchange = findViewById(R.id.btnExchange);
+        Button contact = findViewById(R.id.btnContact);
+
+        if (username.equals(ParseUser.getCurrentUser().getUsername())) {
+            exchange.setVisibility(View.GONE);
+            contact.setVisibility(View.GONE);
+        }
+
         textViewName.setText(username);
         textViewTitle.setText(title);
         textViewDesc.setText(desc);
+
         if (isOneTime) {
             textViewAvail.setText("Una vez");
         } else {
@@ -56,10 +66,15 @@ public class OfferContent extends AppCompatActivity {
                                 .atZone(ZoneId.of("UTC"))
                                 .toInstant().toEpochMilli();
                         Date date = new Date(millis);
-                        if (object.getDate("expires_at").equals(date)) {
+                        try {
+                            if (object.getDate("expires_at").equals(date)) {
+                                textViewAvail.setText("Siempre");
+                            } else {
+                                textViewAvail.setText(object.getString("expires_at"));
+                            }
+                        } catch (NullPointerException exception){
+                            System.out.println("Fecha de expiración vacía");
                             textViewAvail.setText("Siempre");
-                        } else {
-                            textViewAvail.setText(object.getString("expires_at"));
                         }
                     }
                 }
@@ -86,7 +101,7 @@ public class OfferContent extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), TimeExchangeOffer.class);
         String username = getIntent().getExtras().getString("o_username");
         if (username.equals(ParseUser.getCurrentUser().getUsername())) {
-            Toast.makeText(getApplicationContext(), "No puedes contactar contigo mismo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "No puedes intercambiar tiempo contigo mismo", Toast.LENGTH_SHORT).show();
         } else {
             intent.putExtra("o_id", getIntent().getExtras().getString("o_id"));
             intent.putExtra("o_username", getIntent().getExtras().getString("o_username"));

@@ -42,14 +42,11 @@ public class OfferListActivity extends AppCompatActivity {
 
         ListView offerListView = findViewById(R.id.offerListView);
 
-
-
         offerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 final Intent intent = new Intent(getApplicationContext(), OfferContent.class);
-                ParseObject offer = new ParseObject("Offer");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Offer");
                 String offerID = offersArray.get(i).getId();
                 j = i;

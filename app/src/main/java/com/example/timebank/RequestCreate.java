@@ -13,6 +13,9 @@ import android.widget.EditText;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class RequestCreate extends AppCompatActivity {
@@ -47,10 +50,24 @@ public class RequestCreate extends AppCompatActivity {
     public void saveChanges(View v) {
 
         ParseObject request = new ParseObject("Request");
-        long expiryDate = getIntent().getExtras().getLong("task_date");
-        Date date = new Date();
-        date.setTime(expiryDate);
-        request.put("expires_at", date);
+        try {
+            long expiryDate = getIntent().getExtras().getLong("task_date");
+            Date date = new Date();
+            date.setTime(expiryDate);
+            request.put("expires_at", date);
+        } catch (NullPointerException e) {
+            System.out.println("Fecha no encontrada");
+        }
+        String myDate = "31/12/2099 23:59:59";  // 4102444799000L
+        LocalDateTime localDateTime = LocalDateTime.parse(myDate,
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss") );
+
+        long millis = localDateTime
+                .atZone(ZoneId.of("UTC"))
+                .toInstant().toEpochMilli();
+        Date date2 = new Date(millis);
+
+        request.put("expires_at", date2);
         request.put("username", ParseUser.getCurrentUser());
         request.put("request_title", requestTitle.getText().toString());
         request.put("request_desc", requestDesc.getText().toString());

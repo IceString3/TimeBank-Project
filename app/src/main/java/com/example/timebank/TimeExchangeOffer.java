@@ -67,9 +67,9 @@ public class TimeExchangeOffer extends Activity {
                             try {
                                 if (credits.getParseUser("username").fetchIfNeeded().getUsername().equals(username)) {
                                     credits.increment("time_credits", hours);
+                                    user.increment("total_spent_hours", hours);
+                                    user.increment("total_offers");
                                     credits.saveInBackground();
-                                    user.getParseUser("username").increment("total_spent_hours", hours);
-                                    user.getParseUser("username").increment("total_offers");
                                     user.saveInBackground();
                                     break;
                                 }

@@ -16,10 +16,14 @@
             android:targetClass="com.example.timebank.UserData"
             android:targetPackage="com.example.timebank" />
     </Preference>
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="check_box_preference_1"
-        android:title="Check box preference" />
+    <Preference
+        android:summary="Ver reseñas que han hecho sobre ti"
+        android:title="Ver reseñas">
+        <intent
+            android:action="com.example.timebank.SETTING_START_ACTIVITY"
+            android:targetClass="com.example.timebank.ViewReviews"
+            android:targetPackage="com.example.timebank" />
+    </Preference>
     <EditTextPreference
         android:defaultValue="Default value"
         android:key="edit_text_preference_1"

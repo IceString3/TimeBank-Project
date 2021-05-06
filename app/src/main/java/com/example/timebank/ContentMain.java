@@ -15,6 +15,11 @@ public class ContentMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
 
         TextView welcomeTextView = findViewById(R.id.welcomeTextView);
         welcomeTextView.setText("Bienvenido/a, " + ParseUser.getCurrentUser().get("Name"));

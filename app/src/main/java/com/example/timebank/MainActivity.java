@@ -21,17 +21,18 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] elements = new String[] {};
-    ListView l;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
-        ParseUser.logOut();
-        Button nextScr = findViewById(R.id.buttonNewAcc);
-        nextScr.setOnClickListener(new View.OnClickListener() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+            startActivity(intent);
+        }
+
+        Button newAccount = findViewById(R.id.buttonNewAcc);
+        newAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, new_account.class);

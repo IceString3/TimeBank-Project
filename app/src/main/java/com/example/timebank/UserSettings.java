@@ -21,7 +21,7 @@ public class UserSettings extends AppCompatActivity {
                 .commit();
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user_menu, menu);
         return true;
@@ -51,5 +51,5 @@ public class UserSettings extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 }

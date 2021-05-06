@@ -3,6 +3,7 @@ package com.example.timebank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class UserEval extends AppCompatActivity {
     }
 
     public void accept(View v) {
-        final String offerTitle = getIntent().getExtras().getString("o_title");
+        //final String offerTitle = getIntent().getExtras().getString("o_title");
         score = findViewById(R.id.ratingBar1);
         desc = findViewById(R.id.editTextEvalDesc);
         reviewedUser = getIntent().getExtras().getString("username");
@@ -47,13 +48,14 @@ public class UserEval extends AppCompatActivity {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Reviews");
         query.whereEqualTo("reviewed_by", ParseUser.getCurrentUser().getUsername());
+        query.whereEqualTo("reviewed_user", reviewedUser);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (object != null) {
                     if (e == null) {
-                        builder = new AlertDialog.Builder(getApplicationContext());
-                        builder.setMessage("Ya habías hecho una reseña sobre este usuario. Deseas actualizar" +
+                        builder = new AlertDialog.Builder(UserEval.this);
+                        builder.setMessage("Ya habías hecho una reseña sobre este usuario. Deseas actualizar " +
                                 "tu reseña?");
 
                         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
@@ -61,13 +63,12 @@ public class UserEval extends AppCompatActivity {
                                 if (score1 >= 0 && score1 <= 5) {
                                     String description = desc.getText().toString();
 
-                                    ParseObject review = new ParseObject("Reviews");
-                                    review.put("offer_title", offerTitle);
-                                    review.put("reviewed_user", reviewedUser);
-                                    review.put("reviewed_by", ParseUser.getCurrentUser().getUsername());
-                                    review.put("description", description);
-                                    review.put("score", score1);
-                                    review.saveInBackground();
+                                    //object.put("offer_title", offerTitle);
+                                    object.put("reviewed_user", reviewedUser);
+                                    object.put("reviewed_by", ParseUser.getCurrentUser().getUsername());
+                                    object.put("description", description);
+                                    object.put("score", score1);
+                                    object.saveInBackground();
                                     Toast.makeText(getApplicationContext(), "Reseña enviada", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), ContentMain.class);
                                     startActivity(intent);
@@ -91,7 +92,7 @@ public class UserEval extends AppCompatActivity {
                         String description = desc.getText().toString();
 
                         ParseObject review = new ParseObject("Reviews");
-                        review.put("offer_title", offerTitle);
+                        //review.put("offer_title", offerTitle);
                         review.put("reviewed_user", reviewedUser);
                         review.put("reviewed_by", ParseUser.getCurrentUser().getUsername());
                         review.put("description", description);

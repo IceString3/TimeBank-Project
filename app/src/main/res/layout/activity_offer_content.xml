@@ -106,18 +106,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnContact"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="137dp"
         android:layout_height="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:onClick="contactUser"
-        android:text="Contactar con \nusuario"
+        android:text="Contactar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/btnCancelOfferCont"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="110dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
@@ -128,7 +130,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btnExchange"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:layout_marginStart="8dp"
@@ -137,7 +140,7 @@
         android:onClick="exchange"
         android:text="Registrar \nintercambio"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintStart_toEndOf="@+id/button9" />
+        app:layout_constraintEnd_toStartOf="@+id/btnContact"
+        app:layout_constraintStart_toEndOf="@+id/btnCancelOfferCont" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

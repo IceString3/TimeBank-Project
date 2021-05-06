@@ -60,7 +60,7 @@ public class TimeExchangeRequest extends AppCompatActivity {
                                 if (credits.getParseUser("username").fetchIfNeeded().getUsername().equals(username)) {
                                     credits.increment("time_credits", -1 * hours);
                                     credits.saveInBackground();
-                                    user.getParseUser("username").increment("total_requests");
+                                    user.increment("total_requests");
                                     user.saveInBackground();
                                     break;
                                 }
