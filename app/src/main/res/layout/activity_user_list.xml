@@ -8,14 +8,43 @@
 
     <ListView
         android:id="@+id/userListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="395dp"
+        android:layout_height="525dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/RadioGroupUserChoice"
+        android:layout_width="0dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userListView">
+
+        <RadioButton
+            android:id="@+id/radioButtonO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Ofertas"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userListView" />
+
+        <RadioButton
+            android:id="@+id/radioButtonR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Peticiones"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userListView" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -21,6 +24,8 @@ public class UserListActivity extends AppCompatActivity {
 
     ArrayList<String> users = new ArrayList<>();
 
+    RadioButton rButtonOffers;
+    RadioButton rButtonRequests;
     ArrayAdapter<String> arrayAdapter;
     String currentCommunity = ParseUser.getCurrentUser().getString("community_name");
 
@@ -28,16 +33,27 @@ public class UserListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
-
         setTitle("Lista de usuarios");
+
+        rButtonOffers = (RadioButton) findViewById(R.id.radioButtonO);
+        rButtonRequests = (RadioButton) findViewById(R.id.radioButtonR);
 
         ListView userListView = findViewById(R.id.userListView);
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                intent.putExtra("username_r", users.get(i));
-                startActivity(intent);
+                if (rButtonOffers.isChecked()) {
+                    Intent intent = new Intent(getApplicationContext(), OfferListActivity.class);
+                    intent.putExtra("username_r", users.get(i));
+                    startActivity(intent);
+                } else if (rButtonRequests.isChecked()) {
+                    Intent intent = new Intent(getApplicationContext(), RequestListActivity.class);
+                    intent.putExtra("username_r", users.get(i));
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(UserListActivity.this, "No se ha seleccionado ninguna opción",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

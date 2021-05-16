@@ -2,6 +2,7 @@ package com.example.timebank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -359,5 +360,10 @@ public class UserAvailability extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void cancel(View v) {
+        Intent intent = new Intent(getApplicationContext(), UserSettings.class);
+        startActivity(intent);
     }
 }

@@ -37,11 +37,11 @@ public class RequestListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
 
-        setTitle("Request List");
+        setTitle("Lista de peticiones");
 
         ListView requestListView = findViewById(R.id.requestListView);
 
-
+        String username1 = getIntent().getStringExtra("username_r");
 
         requestListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,38 +79,73 @@ public class RequestListActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_2, from, to);
         requestListView.setAdapter(adapter);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Request");
+        ParseQuery<ParseObject> queryRequest = ParseQuery.getQuery("Request");
 
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    if (objects.size() > 0) {
-                        for (ParseObject request : objects) {
-                            RequestClass requests = new RequestClass();
-                            try {
-                                ParseUser user = request.getParseUser("username").fetchIfNeeded();
-                                requests.setUser(user.getUsername());
-                            } catch (ParseException parseException) {
-                                parseException.printStackTrace();
+        if (username1 != null) {
+            queryRequest.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        if (objects.size() > 0) {
+                            for (int i = 0; i < objects.size(); i++) {
+                                ParseObject request = objects.get(i);
+                                RequestClass requests = new RequestClass();
+                                try {
+                                    if (request.getParseUser("username").fetchIfNeeded().getUsername().equals(username1)) {
+                                        requests.setUser(username1);
+                                        requests.setId(request.getObjectId());
+                                        requests.setTitle(request.getString("request_title"));
+                                        requests.setDesc(request.getString("request_desc"));
+                                        requests.setOneTime(request.getBoolean("one_time_only"));
+
+                                        requestsArray.add(requests);
+
+                                        HashMap<String, String> map1 = new HashMap<>();
+                                        map1.put("line1", request.getString("request_title"));
+                                        map1.put("line2", request.getString("request_desc"));
+                                        list.add(map1);
+                                    }
+                                } catch (ParseException parseException) {
+                                    parseException.printStackTrace();
+                                }
+                                adapter.notifyDataSetChanged();
                             }
-
-                            requests.setId(request.getObjectId());
-                            requests.setTitle(request.getString("request_title"));
-                            requests.setDesc(request.getString("request_desc"));
-                            requests.setOneTime(request.getBoolean("one_time_only"));
-
-                            requestsArray.add(requests);
-
-                            HashMap<String, String> map1 = new HashMap<>();
-                            map1.put("line1", request.getString("request_title"));
-                            map1.put("line2", request.getString("request_desc"));
-                            list.add(map1);
                         }
-                        adapter.notifyDataSetChanged();
                     }
                 }
-            }
-        });
+            });
+        } else {
+            queryRequest.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        if (objects.size() > 0) {
+                            for (ParseObject request : objects) {
+                                RequestClass requests = new RequestClass();
+                                try {
+                                    ParseUser user = request.getParseUser("username").fetchIfNeeded();
+                                    requests.setUser(user.getUsername());
+                                } catch (ParseException parseException) {
+                                    parseException.printStackTrace();
+                                }
+
+                                requests.setId(request.getObjectId());
+                                requests.setTitle(request.getString("request_title"));
+                                requests.setDesc(request.getString("request_desc"));
+                                requests.setOneTime(request.getBoolean("one_time_only"));
+
+                                requestsArray.add(requests);
+
+                                HashMap<String, String> map1 = new HashMap<>();
+                                map1.put("line1", request.getString("request_title") + " "  + "(" + requests.getUser() + ")");
+                                map1.put("line2", request.getString("request_desc"));
+                                list.add(map1);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
+        }
     }
 }

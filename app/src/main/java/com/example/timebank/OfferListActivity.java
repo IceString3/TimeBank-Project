@@ -24,8 +24,13 @@ import java.util.List;
 
 public class OfferListActivity extends AppCompatActivity {
 
+    /*TODO
+    User can edit their own offers.
+     */
+
     int j;
 
+    ParseUser user1 = new ParseUser();
     ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(
             2);
 
@@ -38,7 +43,9 @@ public class OfferListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_list);
 
-        setTitle("Offer List");
+        String username1 = getIntent().getStringExtra("username_r");
+
+        setTitle("Lista de ofertas");
 
         ListView offerListView = findViewById(R.id.offerListView);
 
@@ -83,38 +90,74 @@ public class OfferListActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_2, from, to);
         offerListView.setAdapter(adapter);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Offer");
+        ParseQuery<ParseObject> queryOffer = ParseQuery.getQuery("Offer");
 
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    if (objects.size() > 0) {
-                        for (ParseObject offer : objects) {
-                            OfferClass offers = new OfferClass();
-                            try {
-                                ParseUser user = offer.getParseUser("username").fetchIfNeeded();
-                                offers.setUser(user.getUsername());
-                            } catch (ParseException parseException) {
-                                parseException.printStackTrace();
+        if (username1 != null) {
+            queryOffer.whereEqualTo("community", ParseUser.getCurrentUser().getString("community_name"));
+            queryOffer.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        if (objects.size() > 0) {
+                            for (int i = 0; i < objects.size(); i++) {
+                                ParseObject offer = objects.get(i);
+                                OfferClass offers = new OfferClass();
+                                try {
+                                    if (offer.getParseUser("username").fetchIfNeeded().getUsername().equals(username1)) {
+                                        offers.setUser(username1);
+                                        offers.setId(offer.getObjectId());
+                                        offers.setTitle(offer.getString("offer_title"));
+                                        offers.setDesc(offer.getString("offer_desc"));
+                                        offers.setOneTime(offer.getBoolean("one_time_only"));
+
+                                        offersArray.add(offers);
+
+                                        HashMap<String, String> map1 = new HashMap<>();
+                                        map1.put("line1", offer.getString("offer_title"));
+                                        map1.put("line2", offer.getString("offer_desc"));
+                                        list.add(map1);
+                                    }
+                                } catch (ParseException parseException) {
+                                    parseException.printStackTrace();
+                                }
+                                adapter.notifyDataSetChanged();
                             }
-
-                            offers.setId(offer.getObjectId());
-                            offers.setTitle(offer.getString("offer_title"));
-                            offers.setDesc(offer.getString("offer_desc"));
-                            offers.setOneTime(offer.getBoolean("one_time_only"));
-
-                            offersArray.add(offers);
-
-                            HashMap<String, String> map1 = new HashMap<>();
-                            map1.put("line1", offer.getString("offer_title"));
-                            map1.put("line2", offer.getString("offer_desc"));
-                            list.add(map1);
                         }
-                        adapter.notifyDataSetChanged();
                     }
                 }
-            }
-        });
+            });
+        } else {
+            queryOffer.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (e == null) {
+                        if (objects.size() > 0) {
+                            for (ParseObject offer : objects) {
+                                OfferClass offers = new OfferClass();
+                                try {
+                                    ParseUser user = offer.getParseUser("username").fetchIfNeeded();
+                                    offers.setUser(user.getUsername());
+                                } catch (ParseException parseException) {
+                                    parseException.printStackTrace();
+                                }
+
+                                offers.setId(offer.getObjectId());
+                                offers.setTitle(offer.getString("offer_title"));
+                                offers.setDesc(offer.getString("offer_desc"));
+                                offers.setOneTime(offer.getBoolean("one_time_only"));
+
+                                offersArray.add(offers);
+
+                                HashMap<String, String> map1 = new HashMap<>();
+                                map1.put("line1", offer.getString("offer_title") + " "  + "(" + offers.getUser() + ")");
+                                map1.put("line2", offer.getString("offer_desc"));
+                                list.add(map1);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
+        }
     }
 }

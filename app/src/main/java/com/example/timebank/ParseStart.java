@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 
-public class ParseStart extends Application {
+/*public class ParseStart extends Application {
 
     @Override
     public void onCreate() {
@@ -21,4 +21,4 @@ public class ParseStart extends Application {
                 .build()
         );
     }
-}
+}*/

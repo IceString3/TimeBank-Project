@@ -3,7 +3,6 @@ package com.example.timebank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,14 +11,11 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.util.List;
 
 public class UserEval extends AppCompatActivity {
 
@@ -70,7 +66,7 @@ public class UserEval extends AppCompatActivity {
                                     object.put("score", score1);
                                     object.saveInBackground();
                                     Toast.makeText(getApplicationContext(), "Reseña enviada", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+                                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                                     startActivity(intent);
                                 } else {
                                     Toast.makeText(getApplicationContext(), "La puntuación debe estar entre 1 y 5.", Toast.LENGTH_SHORT).show();
@@ -107,7 +103,7 @@ public class UserEval extends AppCompatActivity {
         });
     }
     public void cancel(View v) {
-        Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+        Intent intent = new Intent(getApplicationContext(), MainMenu.class);
         startActivity(intent);
     }
 }

@@ -16,8 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ViewReviews"></activity>
-        <activity android:name=".UserData"></activity>
+        <activity android:name=".Categories"></activity>
+        <activity android:name=".UploadImage" />
+        <activity android:name=".ViewReviews" />
+        <activity android:name=".UserData" />
         <activity android:name=".UserAvailability" />
         <activity android:name=".UserEval" />
         <activity android:name=".UserSettings" />
@@ -35,7 +37,7 @@
         <activity android:name=".OfferListActivity" />
         <activity android:name=".OfferCreate" />
         <activity android:name=".new_account2" />
-        <activity android:name=".ContentMain" />
+        <activity android:name=".MainMenu" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

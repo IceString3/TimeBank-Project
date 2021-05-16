@@ -16,6 +16,7 @@ import com.parse.ParseUser;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Date;
 
 public class RequestCreate extends AppCompatActivity {
@@ -49,6 +50,8 @@ public class RequestCreate extends AppCompatActivity {
 
     public void saveChanges(View v) {
 
+        String[] categoriesList = getIntent().getExtras().getStringArray("categories");
+
         ParseObject request = new ParseObject("Request");
         try {
             long expiryDate = getIntent().getExtras().getLong("task_date");
@@ -72,10 +75,17 @@ public class RequestCreate extends AppCompatActivity {
         request.put("request_title", requestTitle.getText().toString());
         request.put("request_desc", requestDesc.getText().toString());
         request.put("one_time_only", oneTime.isChecked());
+        request.put("community", ParseUser.getCurrentUser().getString("community_name"));
+        request.put("times_completed", 0);
         request.put("is_finished", false);
+        if (categoriesList != null) {
+            request.put("categories", Arrays.asList(categoriesList));
+        } else {
+            request.put("categories", Arrays.asList("ninguna"));
+        }
 
         request.saveInBackground();
-        Intent intent = new Intent(RequestCreate.this, ContentMain.class);
+        Intent intent = new Intent(RequestCreate.this, MainMenu.class);
         sharedpreferences = getSharedPreferences("createRequestTemp", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear();
@@ -85,7 +95,19 @@ public class RequestCreate extends AppCompatActivity {
     }
 
     public void cancel(View v) {
-        Intent intent = new Intent(RequestCreate.this, ContentMain.class);
+        Intent intent = new Intent(RequestCreate.this, MainMenu.class);
+        startActivity(intent);
+    }
+
+    public void configCat(View v) {
+        Intent intent = new Intent(RequestCreate.this, Categories.class);
+        intent.putExtra("taskType", "request");
+        sharedpreferences = getSharedPreferences("createRequestTemp", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("requestTitle", requestTitle.getText().toString());
+        editor.putString("requestDesc", requestTitle.getText().toString());
+        editor.putBoolean("requestOneTime", oneTime.isChecked());
+        editor.apply();
         startActivity(intent);
     }
 
@@ -97,6 +119,7 @@ public class RequestCreate extends AppCompatActivity {
         editor.putString("requestDesc", requestDesc.getText().toString());
         editor.putBoolean("requestOneTime", oneTime.isChecked());
         editor.apply();
+        intent.putExtra("TaskCreated", "request");
         startActivity(intent);
     }
 }

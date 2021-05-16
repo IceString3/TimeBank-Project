@@ -129,7 +129,7 @@ public class TimeExchangeRequest extends AppCompatActivity {
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                 startActivity(intent);
             }
         });

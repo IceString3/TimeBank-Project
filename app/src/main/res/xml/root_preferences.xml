@@ -24,12 +24,6 @@
             android:targetClass="com.example.timebank.ViewReviews"
             android:targetPackage="com.example.timebank" />
     </Preference>
-    <EditTextPreference
-        android:defaultValue="Default value"
-        android:key="edit_text_preference_1"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="Edit text preference" />
     <Preference
         android:summary="Configurar disponibilidad"
         android:title="Disponibilidad">

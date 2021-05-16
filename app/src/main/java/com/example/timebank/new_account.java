@@ -59,29 +59,5 @@ public class new_account extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
-
-//    public void next(View view) {
-//        final EditText nameText = findViewById(R.id.editTextName);
-//        EditText surnameText = findViewById(R.id.editTextSurname);
-//        EditText surnameText2 = findViewById(R.id.editTextSurname2);
-//        EditText phoneText = findViewById(R.id.editTextPhone);
-//        EditText mobilePhoneText = findViewById(R.id.editTextMobilePhone);
-//        EditText locText = findViewById(R.id.editTextLoc);
-//        EditText professionText = findViewById(R.id.editTextProfession);
-//
-//        final String name = nameText.getText().toString();
-//        String surname1 = surnameText.getText().toString();
-//        String surname2 = surnameText2.getText().toString();
-//        String phone = phoneText.getText().toString();
-//        String mobilePhone = mobilePhoneText.getText().toString();
-//        String loc = locText.getText().toString();
-//        String profession = professionText.getText().toString();
-//        Intent intent = new Intent(new_account.this,
-//                new_account2.class);
-//        intent.putExtra("Name", nameText.getText().toString());
-//        startActivity(intent);
-//    }
 }

@@ -8,8 +8,8 @@
 
     <EditText
         android:id="@+id/editTextOfferDesc"
-        android:layout_width="378dp"
-        android:layout_height="292dp"
+        android:layout_width="0dp"
+        android:layout_height="219dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="172dp"
         android:layout_marginEnd="16dp"
@@ -19,17 +19,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/saveChangesButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:onClick="saveChanges"
-        android:text="Guardar cambios"
+        android:text="@string/save_changes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -46,8 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -55,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Título"
+        android:text="@string/title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,17 +64,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="Descripción"
+        android:text="@string/description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextOfferTitle" />
 
     <Button
         android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="32dp"
-        android:text="Cancelar"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/saveChangesButton"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,23 +83,37 @@
 
     <CheckBox
         android:id="@+id/oneTimeCheckBox"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="247dp"
         android:layout_height="34dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Disponible sólo una vez"
+        android:text="@string/available_only_once"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextOfferDesc" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btn_config_svc"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:onClick="calendar"
-        android:text="Configurar duración del servicio"
+        android:text="@string/config_service_duration"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/oneTimeCheckBox" />
+
+    <Button
+        android:id="@+id/btn_config_categories"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:onClick="configCat"
+        android:text="Configurar categorías"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_config_svc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

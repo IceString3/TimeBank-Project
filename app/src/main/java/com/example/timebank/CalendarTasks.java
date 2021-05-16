@@ -28,6 +28,8 @@ public class CalendarTasks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_tasks);
 
+        String comingFrom = getIntent().getStringExtra("TaskCreated");
+
         setTitle("Selección de fecha");
 
         calendar = Calendar.getInstance();
@@ -52,9 +54,22 @@ public class CalendarTasks extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RequestCreate.class);
-                intent.putExtra("task_date", selectedDate.getTime());
-                startActivity(intent);
+                if (comingFrom != null) {
+                    if (comingFrom.equals("offer")) {
+                        Intent intent = new Intent(getApplicationContext(), OfferCreate.class);
+                        intent.putExtra("task_date", selectedDate.getTime());
+                        startActivity(intent);
+                    } else if (comingFrom.equals("request")) {
+                        Intent intent = new Intent(getApplicationContext(), RequestCreate.class);
+                        intent.putExtra("task_date", selectedDate.getTime());
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se ha podido determinar la pantalla anterior",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                    startActivity(intent);
+                }
             }
         });
 

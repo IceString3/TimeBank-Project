@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,7 +49,7 @@ public class Community extends AppCompatActivity {
                         ParseUser.getCurrentUser().saveInBackground();
                         Toast.makeText(getApplicationContext(), "La primera comunidad " +
                                 communityName + " ha sido creada", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+                        Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                         startActivity(intent);
                     } else {
                         objects.size();
@@ -66,7 +65,7 @@ public class Community extends AppCompatActivity {
                                 ParseUser.getCurrentUser().saveInBackground();
                                 Toast.makeText(getApplicationContext(), "La comunidad " +
                                         communityName + " ha sido creada", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+                                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                                 startActivity(intent);
                             }
                         }
@@ -97,7 +96,7 @@ public class Community extends AppCompatActivity {
                                 ParseUser.getCurrentUser().saveInBackground();
                                 Toast.makeText(getApplicationContext(), "Se ha unido a la comunidad de " +
                                         communityName, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), ContentMain.class);
+                                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(getApplicationContext(), "No se ha encontrado la comunidad " +

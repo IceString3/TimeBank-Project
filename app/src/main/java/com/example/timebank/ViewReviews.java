@@ -78,4 +78,9 @@ public class ViewReviews extends AppCompatActivity {
             }
         });
     }
+
+    public void cancel(View v) {
+        Intent intent = new Intent(getApplicationContext(), UserSettings.class);
+        startActivity(intent);
+    }
 }
