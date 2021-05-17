@@ -2,6 +2,8 @@ package com.example.timebank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +34,7 @@ import java.util.List;
 
 public class RequestContent extends AppCompatActivity {
 
+    AlertDialog.Builder builder;
     EditText editTextTitle;
     EditText editTextDesc;
     Button cancel;
@@ -200,7 +203,34 @@ public class RequestContent extends AppCompatActivity {
             return true;
 
         } else if (itemId == R.id.menu_delete) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage("¿Desea eliminar la tarea demandada?");
 
+            builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Request");
+                    String requestID = getIntent().getExtras().getString("r_id");
+                    query.getInBackground(requestID, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+                            try {
+                                object.delete();
+                            } catch (ParseException parseException) {
+                                parseException.printStackTrace();
+                            }
+                        }
+                    });
+                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
             return true;
 
         } else if (itemId == R.id.menu_contact) {

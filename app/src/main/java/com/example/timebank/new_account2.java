@@ -72,12 +72,12 @@ public class new_account2 extends AppCompatActivity {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        Intent intent = new Intent(new_account2.this,
-                                Community.class);
                         ParseObject credits = new ParseObject("Credits");
                         credits.put("username", ParseUser.getCurrentUser());
                         credits.put("time_credits", 5);
                         credits.saveInBackground();
+                        Intent intent = new Intent(new_account2.this,
+                                Community.class);
                         intent.putExtra("Username", userText.getText().toString());
                         startActivity(intent);
                     } else {

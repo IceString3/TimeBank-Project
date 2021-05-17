@@ -2,6 +2,8 @@ package com.example.timebank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +35,7 @@ import java.util.List;
 
 public class OfferContent extends AppCompatActivity {
 
+    AlertDialog.Builder builder;
     EditText editTextTitle;
     EditText editTextDesc;
     Button cancel;
@@ -203,6 +206,35 @@ public class OfferContent extends AppCompatActivity {
             return true;
 
         } else if (itemId == R.id.menu_delete) {
+            builder = new AlertDialog.Builder(this);
+            builder.setMessage("¿Desea eliminar la tarea ofertada?");
+
+            builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Offer");
+                    String offerID = getIntent().getExtras().getString("o_id");
+                    query.getInBackground(offerID, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject object, ParseException e) {
+                            try {
+                                object.delete();
+                            } catch (ParseException parseException) {
+                                parseException.printStackTrace();
+                            }
+                        }
+                    });
+                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
 
             return true;
 
