@@ -101,13 +101,13 @@ public class RequestCreate extends AppCompatActivity {
 
     public void configCat(View v) {
         Intent intent = new Intent(RequestCreate.this, Categories.class);
-        intent.putExtra("taskType", "request");
         sharedpreferences = getSharedPreferences("createRequestTemp", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("requestTitle", requestTitle.getText().toString());
         editor.putString("requestDesc", requestTitle.getText().toString());
         editor.putBoolean("requestOneTime", oneTime.isChecked());
         editor.apply();
+        intent.putExtra("TaskCreated", "request");
         startActivity(intent);
     }
 
