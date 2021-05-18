@@ -21,7 +21,7 @@ public class Categories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-        String comingFrom = getIntent().getStringExtra("taskCreated");
+        String comingFrom = getIntent().getStringExtra("TaskCreated");
 
         CheckBox[] categories = {findViewById(R.id.checkBoxCarpentry), findViewById(R.id.checkBoxCar),
                 findViewById(R.id.checkBoxGardening), findViewById(R.id.checkBoxPainting),
